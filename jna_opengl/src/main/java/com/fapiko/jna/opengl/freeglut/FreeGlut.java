@@ -6,6 +6,7 @@ import com.sun.jna.ptr.IntByReference;
 
 public interface FreeGlut extends Library {
     public void glutInit(IntByReference argCount, StringArray arguments);
+    public void glutInitDisplayMode(int displayMode);
     public void glutInitWindowPosition(int x, int y);
     public void glutInitWindowSize(int width, int height);
 }
