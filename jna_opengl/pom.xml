@@ -6,9 +6,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.fapiko.jna.opengl</groupId>
-    <artifactId>glew</artifactId>
+    <artifactId>jna_opengl</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+
+    <parent>
+        <groupId>com.fapiko</groupId>
+        <artifactId>learning_opengl</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
     <dependencies>
         <dependency>
