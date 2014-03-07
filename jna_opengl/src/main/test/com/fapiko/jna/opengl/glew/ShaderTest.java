@@ -13,7 +13,7 @@ import java.nio.charset.Charset;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class TestShader {
+public class ShaderTest {
 
     @BeforeClass
     public static void setUp() {
@@ -25,5 +25,8 @@ public class TestShader {
     public void testShader() throws URISyntaxException, IOException {
         Shader shader = new Shader(Shader.VERTEX_SHADER, "/com/fapiko/jna/opengl/glew/vertexShader.vert");
         assertNotEquals(0, shader.getShaderIndex());
+
+        Shader fragmentShader = new Shader(Shader.FRAGMENT_SHADER, "/com/fapiko/jna/opengl/glew/fragmentShader.frag");
+        assertNotEquals(0, fragmentShader.getShaderIndex());
     }
 }

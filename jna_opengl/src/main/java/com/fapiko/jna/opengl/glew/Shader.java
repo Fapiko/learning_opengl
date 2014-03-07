@@ -2,6 +2,7 @@ package com.fapiko.jna.opengl.glew;
 
 import com.fapiko.jna.opengl.types.GL;
 import com.google.common.io.Files;
+import com.sun.jna.StringArray;
 import com.sun.jna.ptr.IntByReference;
 
 import java.io.File;
@@ -17,9 +18,6 @@ public class Shader {
     public static final int FRAGMENT_SHADER = 0x8B30;
     public static final int VERTEX_SHADER = 0x8B31;
 
-
-    private static Glew glew = GlewFactory.getInstance();
-
     private int shaderIndex;
     private int shaderType;
 
@@ -32,7 +30,7 @@ public class Shader {
             e.printStackTrace();
         }
 
-        shaderIndex = glew.glCreateShader(shaderType);
+        shaderIndex = Glew.glCreateShader(shaderType);
         if (shaderIndex == 0) {
             try {
                 throw new Exception("Unable to create shader");
@@ -41,8 +39,14 @@ public class Shader {
             }
         }
 
-        glew.glShaderSource(shaderIndex, 1, new String[] { shaderSource }, new int[] { shaderSource.length() });
-        glew.glCompileShader(shaderIndex);
+        System.out.println(shaderSource);
+        Glew.glShaderSource(
+                shaderIndex,
+                1,
+                new StringArray(new String[] { shaderSource }),
+                new int[] { shaderSource.length() }
+        );
+        Glew.glCompileShader(shaderIndex);
 
         if (!getShaderParameter(shaderIndex, COMPILE_STATUS)) {
             try {
@@ -55,7 +59,7 @@ public class Shader {
 
     public static boolean getShaderParameter(int shaderIndex, int parameterName) {
         IntByReference status = new IntByReference();
-        glew.glGetShaderiv(shaderIndex, parameterName, status);
+        Glew.glGetShaderiv(shaderIndex, parameterName, status);
 
         if (status.getValue() == GL.TRUE) {
             return true;
@@ -71,4 +75,5 @@ public class Shader {
     public int getShaderIndex() {
         return shaderIndex;
     }
+
 }

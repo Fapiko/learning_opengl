@@ -48,7 +48,8 @@ public class GlewFactory {
                 }
             }
         );*/
-        glew = (Glew) Native.loadLibrary(glewPath, Glew.class, options);
+//        glew = (GlewLibrary)Native.loadLibrary(glewPath, GlewLibrary.class, options);
+        glew = new Glew();
 
 
         return glew;
