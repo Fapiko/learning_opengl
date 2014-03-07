@@ -22,19 +22,13 @@ public class GlewTest {
 
     @Test
     public void testGlewInit() {
-//        assertEquals(0, glew.glewInit());
+        assertEquals(0, glew.glewInit());
     }
 
     @Test
     public void testCreateShader() {
-        System.out.println(glew.glewInit());
-        System.out.println(glew.glewGetString(1));
-//        glew.__glewCreateShader(new Long(GLEnum.GL_VERTEX_SHADER.getValue()).intValue());
-        System.out.println(glew.glCreateShader(new LongByReference(GLEnum.GL_VERTEX_SHADER.getValue())));
-//
-//        System.out.println(glew.__glewGetStringi(GL.VERSION, 0));
-        System.out.println(glew.glGetError());
+        glew.glewInit();
 
-        assertNotEquals(0, glew.glCreateShader(new LongByReference(GLEnum.GL_VERTEX_SHADER.getValue())));
+        assertNotEquals(0, glew.glCreateShader(GLEnum.GL_VERTEX_SHADER.getValue()));
     }
 }

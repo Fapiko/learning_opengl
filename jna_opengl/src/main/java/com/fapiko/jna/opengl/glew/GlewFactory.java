@@ -1,9 +1,6 @@
 package com.fapiko.jna.opengl.glew;
 
-import com.sun.jna.Function;
-import com.sun.jna.InvocationMapper;
-import com.sun.jna.Native;
-import com.sun.jna.NativeLibrary;
+import com.sun.jna.*;
 import com.sun.jna.ptr.LongByReference;
 import org.apache.commons.lang.SystemUtils;
 
@@ -28,7 +25,8 @@ public class GlewFactory {
         }
 
         Map options = new HashMap<String, Object>();
-        options.put("invocation-mapper",
+        options.put(Library.OPTION_CALLING_CONVENTION, Function.C_CONVENTION);
+        /*options.put("invocation-mapper",
             new InvocationMapper() {
                 @Override
                 public InvocationHandler getInvocationHandler(NativeLibrary lib, Method m) {
@@ -49,7 +47,7 @@ public class GlewFactory {
                     return null;
                 }
             }
-        );
+        );*/
         glew = (Glew) Native.loadLibrary(glewPath, Glew.class, options);
 
 

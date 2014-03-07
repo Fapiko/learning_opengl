@@ -11,9 +11,11 @@ public class FreeglutLibraryFactory {
             return freeglut;
         }
 
-        String freeGlutPath = "freeglut";
+        String freeGlutPath;
         if (SystemUtils.IS_OS_WINDOWS) {
             freeGlutPath = "/freeglut/2.8.1-1/win64/bin/x64/freeglut.dll";
+        } else {
+            freeGlutPath = "/freeglut/2.8.1-1/linux/src/.libs/libglut.so";
         }
 
         freeglut = (FreeglutLibrary) Native.loadLibrary(freeGlutPath, FreeglutLibrary.class);
