@@ -7,7 +7,7 @@ import static org.junit.Assert.assertNotNull;
 public class FreeGlutFactoryTest {
     @Test
     public void testGetInstance() {
-        FreeGlut freeGlut = FreeGlutFactory.getInstance();
+        FreeglutLibrary freeGlut = FreeglutLibraryFactory.getInstance();
 
         assertNotNull(freeGlut);
     }
