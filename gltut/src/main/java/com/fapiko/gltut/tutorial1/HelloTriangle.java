@@ -1,6 +1,7 @@
 package com.fapiko.gltut.tutorial1;
 
 import com.fapiko.jna.opengl.freeglut.*;
+import com.fapiko.jna.opengl.glew.Program;
 import com.fapiko.jna.opengl.glew.Shader;
 
 import java.util.EnumSet;
@@ -26,8 +27,10 @@ public class HelloTriangle {
         Freeglut.createWindow("Hello Triangle");
         Freeglut.setOption(GLUT.ACTION_ON_WINDOW_CLOSE, GLUT.ACTION_CONTINUE_EXECUTION);
 
-        Set shaders = new HashSet(2);
+        Set<Shader> shaders = new HashSet<Shader>(2);
         shaders.add(new Shader(Shader.VERTEX_SHADER, "/com/fapiko/gltut/tutorial1/vertexShader.vert"));
         shaders.add(new Shader(Shader.FRAGMENT_SHADER, "/com/fapiko/gltut/tutorial1/fragmentShader.frag"));
+
+        Program program = new Program(shaders);
     }
 }

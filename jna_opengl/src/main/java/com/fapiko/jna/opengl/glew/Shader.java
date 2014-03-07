@@ -39,7 +39,6 @@ public class Shader {
             }
         }
 
-        System.out.println(shaderSource);
         Glew.glShaderSource(
                 shaderIndex,
                 1,

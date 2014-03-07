@@ -21,8 +21,6 @@ import static org.junit.Assert.assertNotNull;
 
 public class GlewTest {
 
-    private Glew glew = GlewFactory.getInstance();
-
     private final String fragmentShaderPath = "/com/fapiko/jna/opengl/glew/fragmentShader.frag";
     private final String vertexShaderPath = "/com/fapiko/jna/opengl/glew/vertexShader.vert";
 
@@ -34,12 +32,12 @@ public class GlewTest {
 
     @Test
     public void testGlewInit() {
-        assertEquals(0, glew.glewInit());
+        assertEquals(0, Glew.glewInit());
     }
 
     @Test
     public void testCreateShader() {
-        assertNotEquals(0, glew.glCreateShader(GLEnum.GL_VERTEX_SHADER.getValue()));
+        assertNotEquals(0, Glew.glCreateShader(GLEnum.GL_VERTEX_SHADER.getValue()));
     }
 
     @Test
@@ -51,12 +49,12 @@ public class GlewTest {
 
         assertNotNull(shader);
 
-        int shaderIndex = glew.glCreateShader(GLEnum.GL_VERTEX_SHADER.getValue());
-        glew.glShaderSource(shaderIndex, 1, new StringArray(new String[] { shader }), new int[] { shader.length() });
-        glew.glCompileShader(shaderIndex);
+        int shaderIndex = Glew.glCreateShader(GLEnum.GL_VERTEX_SHADER.getValue());
+        Glew.glShaderSource(shaderIndex, 1, new StringArray(new String[] { shader }), new int[] { shader.length() });
+        Glew.glCompileShader(shaderIndex);
 
         IntByReference shaderCompileStatus = new IntByReference();
-        glew.glGetShaderiv(shaderIndex, GL.COMPILE_STATUS, shaderCompileStatus);
+        Glew.glGetShaderiv(shaderIndex, GL.COMPILE_STATUS, shaderCompileStatus);
         assertEquals(1, shaderCompileStatus.getValue());
     }
 
@@ -65,9 +63,14 @@ public class GlewTest {
         Shader vertexShader = new Shader(Shader.VERTEX_SHADER, vertexShaderPath);
         Shader fragmentShader = new Shader(Shader.FRAGMENT_SHADER, fragmentShaderPath);
 
-        int programIndex = glew.glCreateProgram();
+        int programIndex = Glew.glCreateProgram();
 
-        glew.glAttachShader(programIndex, vertexShader.getShaderIndex());
-        glew.glAttachShader(programIndex, fragmentShader.getShaderIndex());
+        Glew.glAttachShader(programIndex, vertexShader.getShaderIndex());
+        Glew.glAttachShader(programIndex, fragmentShader.getShaderIndex());
+        Glew.glLinkProgram(programIndex);
+
+        IntByReference linkStatus = new IntByReference();
+        Glew.glGetProgramiv(programIndex, Program.LINK_STATUS, linkStatus);
+        assertEquals(GL.TRUE, linkStatus.getValue());
     }
 }
