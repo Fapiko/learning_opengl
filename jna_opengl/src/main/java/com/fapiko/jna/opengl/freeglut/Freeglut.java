@@ -52,4 +52,8 @@ public abstract class Freeglut  {
     public static void swapBuffers() {
         freeglutLibrary.glutSwapBuffers();
     }
+
+    public static void mainLoop() {
+        freeglutLibrary.glutMainLoop();
+    }
 }
