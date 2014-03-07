@@ -14,4 +14,5 @@ public interface FreeglutLibrary extends Library {
     public void glutInitWindowPosition(int x, int y);
     public void glutInitWindowSize(int width, int height);
     public void glutSetOption(int option, int value);
+    public void glutSwapBuffers();
 }

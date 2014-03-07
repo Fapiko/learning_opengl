@@ -13,7 +13,7 @@ public class Program {
     public Program(Set<Shader> shaders) {
         programIndex = Glew.glCreateProgram();
         for (Shader shader : shaders) {
-            attachShader(programIndex, shader);
+            attachShader(shader);
         }
         Glew.glLinkProgram(programIndex);
 
@@ -24,10 +24,18 @@ public class Program {
                 e.printStackTrace();
             }
         }
+
+        for (Shader shader : shaders) {
+            detachShader(shader);
+        }
     }
 
-    public static void attachShader(int programIndex, Shader shader) {
+    private void attachShader(Shader shader) {
         Glew.glAttachShader(programIndex, shader.getShaderIndex());
+    }
+
+    private void detachShader(Shader shader) {
+        Glew.glDetachShader(programIndex, shader.getShaderIndex());
     }
 
     private boolean getParameter(int parameterName) {
@@ -39,5 +47,9 @@ public class Program {
         } else {
             return false;
         }
+    }
+
+    public int getProgramIndex() {
+        return programIndex;
     }
 }

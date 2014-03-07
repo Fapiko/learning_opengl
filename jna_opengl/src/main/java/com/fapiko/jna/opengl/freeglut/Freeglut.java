@@ -48,4 +48,8 @@ public abstract class Freeglut  {
     public static void initWindowPosition(int x, int y) {
         freeglutLibrary.glutInitWindowPosition(x, y);
     }
+
+    public static void swapBuffers() {
+        freeglutLibrary.glutSwapBuffers();
+    }
 }

@@ -49,7 +49,7 @@ public class Shader {
 
         if (!getShaderParameter(shaderIndex, COMPILE_STATUS)) {
             try {
-                throw new Exception("Unable to compile shader");
+                throw new Exception("Unable to compile shader\n" + shaderSource);
             } catch (Exception e) {
                 e.printStackTrace();
             }
