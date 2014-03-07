@@ -8,10 +8,11 @@ import com.sun.jna.win32.StdCallLibrary;
 
 public interface Glew extends StdCallLibrary {
     public int glewInit();
+    public void glCompileShader(int shader);
     public int glCreateShader(long shaderType);
-    public ByteByReference __glewCreateShader(long flags);
     public long glGetError();
-    public String glewGetString(int stringFlag);
-    public ByteByReference __glewGetStringi(int string, int index);
+    public void glGetShaderiv(int shader, int parameterName, IntByReference params);
     public long glEnable(long feature);
+    public void glShaderSource(int shader, int count, String[] sourceCode, int[] length);
+
 }
