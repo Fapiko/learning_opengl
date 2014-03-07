@@ -14,7 +14,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class HelloTriangle {
+
+    private static HelloTriangle instance;
+    IntByReference positionBuffer;
+    private Program program;
+
     public static void main(String[] args) {
+        if (HelloTriangle.instance == null) {
+            instance = new HelloTriangle();
+            instance.applicationLoop(args);
+        }
+    }
+
+    public void applicationLoop(String[] args) {
         Freeglut.init(args.length, args);
 
         Set displayMode = EnumSet.of(
@@ -36,7 +48,7 @@ public class HelloTriangle {
         shaders.add(new Shader(Shader.VERTEX_SHADER, "/com/fapiko/gltut/tutorial1/vertexShader.vert"));
         shaders.add(new Shader(Shader.FRAGMENT_SHADER, "/com/fapiko/gltut/tutorial1/fragmentShader.frag"));
 
-        Program program = new Program(shaders);
+        program = new Program(shaders);
 
         // Free this guy up for GC
         shaders = null;
@@ -48,7 +60,7 @@ public class HelloTriangle {
                 -0.75f, -0.75f, 0.0f, 1.0f,
         };
 
-        IntByReference positionBuffer = new IntByReference();
+        positionBuffer = new IntByReference();
         Glew.glGenBuffers(1, positionBuffer);
         Glew.glBindBuffer(Buffer.ARRAY_BUFFER, positionBuffer.getValue());
         Glew.glBufferData(Buffer.ARRAY_BUFFER, vertexPositons.length, vertexPositons, Buffer.STATIC_DRAW);
@@ -59,6 +71,21 @@ public class HelloTriangle {
         Glew.glGenVertexArrays(1, vertexArray);
         Glew.glBindVertexArray(vertexArray.getValue());
 
+
+
+        Glew.glViewport(0, 0, 500, 500);
+
+        FreeglutLibrary freeglutLibrary = FreeglutLibraryFactory.getInstance();
+        freeglutLibrary.glutDisplayFunc(new FreeglutLibrary.DisplayCallback() {
+            @Override
+            public void invoke() {
+                display();
+            }
+        });
+        Freeglut.mainLoop();
+    }
+
+    public void display() {
         // Display some shit
         Glew.glClearColor(0, 0, 0, 0);
         Glew.glClear(Buffer.COLOR_BUFFER_BIT);
@@ -74,9 +101,5 @@ public class HelloTriangle {
         Glew.glUseProgram(0);
 
         Freeglut.swapBuffers();
-
-        Glew.glViewport(0, 0, 500, 500);
-
-        Freeglut.mainLoop();
     }
 }

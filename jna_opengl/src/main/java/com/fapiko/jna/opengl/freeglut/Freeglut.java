@@ -56,4 +56,8 @@ public abstract class Freeglut  {
     public static void mainLoop() {
         freeglutLibrary.glutMainLoop();
     }
+
+    public static void setDisplayCallback(FreeglutLibrary.DisplayCallback displayCallback) {
+        freeglutLibrary.glutDisplayFunc(displayCallback);
+    }
 }

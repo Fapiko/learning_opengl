@@ -1,11 +1,14 @@
 package com.fapiko.jna.opengl.freeglut;
 
+import com.sun.jna.Callback;
 import com.sun.jna.Library;
 import com.sun.jna.StringArray;
 import com.sun.jna.ptr.IntByReference;
 
+
 public interface FreeglutLibrary extends Library {
     public int glutCreateWindow(String name);
+    public void glutDisplayFunc(DisplayCallback display);
     public void glutInit(IntByReference argCount, StringArray arguments);
     public void glutInitContextFlags(int contextFlags);
     public void glutInitContextProfile(int contextProfile);
@@ -16,4 +19,8 @@ public interface FreeglutLibrary extends Library {
     public void glutMainLoop();
     public void glutSetOption(int option, int value);
     public void glutSwapBuffers();
+
+    public interface DisplayCallback extends Callback {
+        void invoke();
+    }
 }
