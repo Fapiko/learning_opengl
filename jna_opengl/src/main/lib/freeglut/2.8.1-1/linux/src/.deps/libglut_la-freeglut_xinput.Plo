@@ -56,13 +56,7 @@ libglut_la-freeglut_xinput.lo: freeglut_xinput.c \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
  /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/getopt.h \
  /usr/include/x86_64-linux-gnu/bits/unistd.h \
- /usr/include/x86_64-linux-gnu/sys/time.h /usr/include/errno.h \
- /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
- /usr/include/x86_64-linux-gnu/asm/errno.h \
- /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/X11/extensions/XInput2.h /usr/include/X11/extensions/XI2.h \
- /usr/include/X11/extensions/Xge.h /usr/include/X11/extensions/Xfixes.h \
- /usr/include/X11/extensions/xfixeswire.h
+ /usr/include/x86_64-linux-gnu/sys/time.h
 
 /usr/include/stdc-predef.h:
 
@@ -235,25 +229,3 @@ freeglut_internal.h:
 /usr/include/x86_64-linux-gnu/bits/unistd.h:
 
 /usr/include/x86_64-linux-gnu/sys/time.h:
-
-/usr/include/errno.h:
-
-/usr/include/x86_64-linux-gnu/bits/errno.h:
-
-/usr/include/linux/errno.h:
-
-/usr/include/x86_64-linux-gnu/asm/errno.h:
-
-/usr/include/asm-generic/errno.h:
-
-/usr/include/asm-generic/errno-base.h:
-
-/usr/include/X11/extensions/XInput2.h:
-
-/usr/include/X11/extensions/XI2.h:
-
-/usr/include/X11/extensions/Xge.h:
-
-/usr/include/X11/extensions/Xfixes.h:
-
-/usr/include/X11/extensions/xfixeswire.h:

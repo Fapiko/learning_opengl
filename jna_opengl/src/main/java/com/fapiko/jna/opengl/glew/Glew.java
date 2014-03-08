@@ -1,9 +1,12 @@
 package com.fapiko.jna.opengl.glew;
 
+import com.sun.jna.Callback;
 import com.sun.jna.Native;
+import com.sun.jna.Pointer;
 import com.sun.jna.StringArray;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
+import org.omg.CORBA._PolicyStub;
 
 import java.nio.Buffer;
 
@@ -17,6 +20,8 @@ public class Glew {
     public static native void glCompileShader(int shader);
     public static native int glCreateProgram();
     public static native int glCreateShader(long shaderType);
+    public static native void glDebugMessageCallbackARB(DebugCallback debugCallback, Pointer userParam);
+    public static native void glDeleteShader(int shaderIndex);
     public static native int glDetachShader(int programIndex, int shaderIndex);
     public static native int glDisableVertexAttribArray(int attributeIndex);
     public static native void glDrawArrays(int mode, int first, int count);
@@ -34,6 +39,10 @@ public class Glew {
                                                     int stride, IntByReference component);
     public static native void glViewport(int x, int y, int width, int height);
     public static native int glewInit();
+
+    public interface DebugCallback extends Callback {
+        public void invoke(int source, int type, int id, int severity, int length, String message, Pointer userParam);
+    }
 
     static {
         Native.register("libGLEW");

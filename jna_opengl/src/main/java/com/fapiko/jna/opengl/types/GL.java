@@ -19,4 +19,6 @@ public interface GL {
     public static final int FLOAT = 0x1406;
 
     public static final int TRIANGLES = 4;
+
+    public static final int DEBUG_OUTPUT_SYNCHRONOUS_ARB = 0x8242;
 }

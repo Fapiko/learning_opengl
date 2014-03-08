@@ -17,10 +17,15 @@ public interface FreeglutLibrary extends Library {
     public void glutInitWindowPosition(int x, int y);
     public void glutInitWindowSize(int width, int height);
     public void glutMainLoop();
+    public void glutReshapeFunc(ReshapeCallback reshapeCallback);
     public void glutSetOption(int option, int value);
     public void glutSwapBuffers();
 
     public interface DisplayCallback extends Callback {
         void invoke();
+    }
+
+    public interface ReshapeCallback extends Callback {
+        void invoke(int width, int height);
     }
 }

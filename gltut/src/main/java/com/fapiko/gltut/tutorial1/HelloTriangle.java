@@ -6,8 +6,8 @@ import com.fapiko.jna.opengl.glew.Glew;
 import com.fapiko.jna.opengl.glew.Program;
 import com.fapiko.jna.opengl.glew.Shader;
 import com.fapiko.jna.opengl.types.GL;
+import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
-import com.sun.jna.ptr.PointerByReference;
 
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -36,13 +36,22 @@ public class HelloTriangle {
                 DisplayMode.GLUT_STENCIL
         );
         Freeglut.initDisplayMode(displayMode);
-        Freeglut.initContextVersion(4, 3);
+//        Freeglut.initContextVersion(4, 3);
+        Freeglut.initContextVersion(4, 2);
         Freeglut.initContextProfile(GLUT.CORE_PROFILE);
         Freeglut.initContextFlags(GLUT.DEBUG);
         Freeglut.initWindowPosition(300, 200);
         Freeglut.initWindowSize(500, 500);
         Freeglut.createWindow("Hello Triangle");
+        Glew.glewInit();
         Freeglut.setOption(GLUT.ACTION_ON_WINDOW_CLOSE, GLUT.ACTION_CONTINUE_EXECUTION);
+
+        Glew.glEnable(GL.DEBUG_OUTPUT_SYNCHRONOUS_ARB);
+        Glew.glDebugMessageCallbackARB(new Glew.DebugCallback() {
+            public void invoke(int source, int type, int id, int severity, int length, String message, Pointer userParam) {
+                System.out.printf("%s %s %s %s %s %s\n", source, type, id, severity, length, message);
+            }
+        }, new Pointer(15));
 
         Set<Shader> shaders = new HashSet<Shader>(2);
         shaders.add(new Shader(Shader.VERTEX_SHADER, "/com/fapiko/gltut/tutorial1/vertexShader.vert"));
@@ -50,14 +59,18 @@ public class HelloTriangle {
 
         program = new Program(shaders);
 
+        // Not sure why this is happening but, meh
+        for (Shader shader : shaders) {
+            Glew.glDeleteShader(shader.getShaderIndex());
+        }
         // Free this guy up for GC
-        shaders = null;
+//        shaders = null;
 
         // Initialize vertex buffer
         final float[] vertexPositons = {
                 0.75f, 0.75f, 0.0f, 1.0f,
                 0.75f, -0.75f, 0.0f, 1.0f,
-                -0.75f, -0.75f, 0.0f, 1.0f,
+                -0.75f, -0.75f, 0.0f, 1.0f
         };
 
         positionBuffer = new IntByReference();
@@ -71,15 +84,16 @@ public class HelloTriangle {
         Glew.glGenVertexArrays(1, vertexArray);
         Glew.glBindVertexArray(vertexArray.getValue());
 
-
-
-        Glew.glViewport(0, 0, 500, 500);
-
         FreeglutLibrary freeglutLibrary = FreeglutLibraryFactory.getInstance();
         freeglutLibrary.glutDisplayFunc(new FreeglutLibrary.DisplayCallback() {
             @Override
             public void invoke() {
                 display();
+            }
+        });
+        freeglutLibrary.glutReshapeFunc(new FreeglutLibrary.ReshapeCallback() {
+            public void invoke(int width, int height) {
+                reshape(width, height);
             }
         });
         Freeglut.mainLoop();
@@ -101,5 +115,9 @@ public class HelloTriangle {
         Glew.glUseProgram(0);
 
         Freeglut.swapBuffers();
+    }
+
+    public void reshape(int width, int height) {
+        Glew.glViewport(0, 0, width, height);
     }
 }
