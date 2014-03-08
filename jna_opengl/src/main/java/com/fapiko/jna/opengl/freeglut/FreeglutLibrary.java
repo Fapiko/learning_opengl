@@ -16,7 +16,9 @@ public interface FreeglutLibrary extends Library {
     public void glutInitDisplayMode(int displayMode);
     public void glutInitWindowPosition(int x, int y);
     public void glutInitWindowSize(int width, int height);
+    public void glutKeyboardFunc(KeyboardCallback keyboardCallback);
     public void glutMainLoop();
+    public void glutLeaveMainLoop();
     public void glutReshapeFunc(ReshapeCallback reshapeCallback);
     public void glutSetOption(int option, int value);
     public void glutSwapBuffers();
@@ -27,5 +29,9 @@ public interface FreeglutLibrary extends Library {
 
     public interface ReshapeCallback extends Callback {
         void invoke(int width, int height);
+    }
+
+    public interface KeyboardCallback extends Callback {
+        void invoke(char key, int x, int y);
     }
 }

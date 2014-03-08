@@ -16,6 +16,7 @@ public class Program {
             attachShader(shader);
         }
         Glew.glLinkProgram(programIndex);
+        Glew.glUseProgram(programIndex);
 
         if (!getParameter(LINK_STATUS)) {
             try {
@@ -26,7 +27,7 @@ public class Program {
         }
 
         for (Shader shader : shaders) {
-            detachShader(shader);
+//            detachShader(shader);
         }
     }
 

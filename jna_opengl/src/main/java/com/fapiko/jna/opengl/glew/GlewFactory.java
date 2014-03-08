@@ -1,5 +1,6 @@
 package com.fapiko.jna.opengl.glew;
 
+import com.fapiko.jna.opengl.glew.experimental.GlewLibrary;
 import com.sun.jna.*;
 import com.sun.jna.ptr.LongByReference;
 import org.apache.commons.lang.SystemUtils;
@@ -10,9 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GlewFactory {
-    private static Glew glew;
+    private static final boolean useDirectMapping = false;
+    private static GlewLibrary glew;
 
-    public static Glew getInstance() {
+    public static GlewLibrary getInstance() {
         if (glew != null) {
             return glew;
         }
@@ -21,11 +23,11 @@ public class GlewFactory {
         if (SystemUtils.IS_OS_WINDOWS) {
             glewPath = "/glew/1.10.0/win32/bin/Release/x64/glew32.dll";
         } else  {
-            glewPath = "/glew/1.10.0/linux/lib/libGLEW.so";
+            glewPath = "/glew/1.10.0/linux/lib/libGLEW.so.1.10";
         }
 
-        Map options = new HashMap<String, Object>();
-        options.put(Library.OPTION_CALLING_CONVENTION, Function.C_CONVENTION);
+//        Map options = new HashMap<String, Object>();
+//        options.put(Library.OPTION_CALLING_CONVENTION, Function.C_CONVENTION);
         /*options.put("invocation-mapper",
             new InvocationMapper() {
                 @Override
@@ -49,7 +51,11 @@ public class GlewFactory {
             }
         );*/
 //        glew = (GlewLibrary)Native.loadLibrary(glewPath, GlewLibrary.class, options);
-        glew = new Glew();
+        if (useDirectMapping) {
+//            glew = new Glew();
+        } else {
+            glew = (GlewLibrary) Native.loadLibrary(glewPath, GlewLibrary.class);
+        }
 
 
         return glew;

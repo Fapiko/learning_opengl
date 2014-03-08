@@ -37,6 +37,7 @@ public class Shader {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            this.shaderType = shaderType;
         }
 
         Glew.glShaderSource(
@@ -75,4 +76,7 @@ public class Shader {
         return shaderIndex;
     }
 
+    public int getShaderType() {
+        return shaderType;
+    }
 }

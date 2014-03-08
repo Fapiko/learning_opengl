@@ -60,4 +60,16 @@ public abstract class Freeglut  {
     public static void setDisplayCallback(FreeglutLibrary.DisplayCallback displayCallback) {
         freeglutLibrary.glutDisplayFunc(displayCallback);
     }
+
+    public static void setReshapeCallback(FreeglutLibrary.ReshapeCallback reshapeCallback) {
+        freeglutLibrary.glutReshapeFunc(reshapeCallback);
+    }
+
+    public static void leaveMainLoop() {
+        freeglutLibrary.glutLeaveMainLoop();
+    }
+
+    public static void setKeyboardCallback(FreeglutLibrary.KeyboardCallback keyboardCallback) {
+        freeglutLibrary.glutKeyboardFunc(keyboardCallback);
+    }
 }

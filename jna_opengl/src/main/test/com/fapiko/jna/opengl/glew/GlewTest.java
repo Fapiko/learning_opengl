@@ -33,6 +33,7 @@ public class GlewTest {
     @Test
     public void testGlewInit() {
         assertEquals(0, Glew.glewInit());
+        System.out.println(Glew.glGetError());
     }
 
     @Test
