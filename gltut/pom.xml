@@ -21,6 +21,18 @@
             <groupId>com.fapiko.jna.opengl</groupId>
             <artifactId>jna_opengl</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.jogamp.jogl</groupId>
+            <artifactId>jogl-all</artifactId>
+            <version>2.1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.java.dev.gluegen</groupId>
+            <artifactId>gluegen-rt</artifactId>
+            <version>1.0b05</version>
+        </dependency>
     </dependencies>
 
 </project>

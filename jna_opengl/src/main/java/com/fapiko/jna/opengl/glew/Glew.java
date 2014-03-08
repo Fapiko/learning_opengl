@@ -41,7 +41,7 @@ public class Glew {
     public static native void glLinkProgram(int program);
     public static native void glShaderSource(int shader, int count, StringArray sourceCode, int[] length);
     public static native void glUseProgram(int programIndex);
-    public static native void glVertexAttribPointer(int attributeIndex, int size, int type, boolean normalized,
+    public static native void glVertexAttribPointer(int attributeIndex, int size, int type, int normalized,
                                                     int stride, int component);
     public static native void glViewport(int x, int y, int width, int height);
     public static native int glewInit();

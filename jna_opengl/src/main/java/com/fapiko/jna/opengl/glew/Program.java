@@ -16,7 +16,6 @@ public class Program {
             attachShader(shader);
         }
         Glew.glLinkProgram(programIndex);
-        Glew.glUseProgram(programIndex);
 
         if (!getParameter(LINK_STATUS)) {
             try {

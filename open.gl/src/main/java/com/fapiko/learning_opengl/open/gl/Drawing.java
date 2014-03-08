@@ -8,6 +8,7 @@ import com.fapiko.jna.opengl.glew.Program;
 import com.fapiko.jna.opengl.glew.Shader;
 import com.fapiko.jna.opengl.types.GL;
 import com.sun.jna.ptr.IntByReference;
+import com.sun.jna.ptr.PointerByReference;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +36,8 @@ public class Drawing {
                 e.printStackTrace();
             }
         }
-
+        System.out.println(Glew.glGetError());
+        System.out.println(Glew.glGetError());
         float[] vertices = {
                 0.0f,  0.5f, // Vertex 1 (X, Y)
                 0.5f, -0.5f, // Vertex 2 (X, Y)
@@ -46,7 +48,7 @@ public class Drawing {
         Glew.glGenBuffers(1, vertexBufferObject);
         Glew.glBindBuffer(Buffer.ARRAY_BUFFER, vertexBufferObject);
         Glew.glBufferData(Buffer.ARRAY_BUFFER, vertices.length, vertices, Buffer.STATIC_DRAW);
-
+        System.out.println(Glew.glGetError());
         Shader vertexShader = new Shader(Shader.VERTEX_SHADER, "/com/fapiko/learning_opengl/open.gl/vertexShader.vert");
         Shader fragmentShader = new Shader(Shader.FRAGMENT_SHADER,
                 "/com/fapiko/learning_opengl/open.gl/fragmentShader.frag");
@@ -68,12 +70,15 @@ public class Drawing {
     }
 
     private void draw() {
-        Glew.glClearColor(0f, 0f, 0f, 0f);
+        Glew.glClearColor(0f, 0f, 0f, 1f);
         Glew.glClear(Buffer.COLOR_BUFFER_BIT);
 
+        Glew.glLinkProgram(program.getProgramIndex());
         Glew.glUseProgram(program.getProgramIndex());
+
         int positionAttribute = Glew.glGetAttribLocation(program.getProgramIndex(), "position");
-        Glew.glVertexAttribPointer(positionAttribute, 2, GL.FLOAT, false, 0, 0);
+        Glew.glVertexAttribPointer(positionAttribute, 2, GL.FLOAT, GL.FALSE, 0, 0);
+        System.out.println(Glew.glGetError());
         Glew.glEnableVertexAttribArray(positionAttribute);
 
         IntByReference vertexArrayObject = new IntByReference();
@@ -82,6 +87,7 @@ public class Drawing {
 
         Glew.glDrawArrays(GL.TRIANGLES, 0, 3);
         Freeglut.swapBuffers();
+        System.out.println("draw " + Glew.glGetError());
     }
 
     private static Drawing getInstance() {
